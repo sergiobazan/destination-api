@@ -5,6 +5,7 @@ using si730pc2u201624050.Domain;
 using si730pc2u201624050.Domain.Interfaces;
 using si730pc2u201624050.Infraestructure;
 using si730pc2u201624050.Infraestructure.Interfaces;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,18 +21,10 @@ builder.Services.AddScoped<IDestinationDomain, DestinationDomain>();
 
 // IMPORTANTEEEEEE
 var connectionString = builder.Configuration.GetConnectionString("TravelersCS");
-var serverVersion = new MySqlServerVersion(new Version(8, 0, 31)); // CAMBIAR A LA VERSION QUE TENGA INSTALADA
-
-builder.Services.AddDbContext<TravelersDbContext>(
-    dbContextOptions =>
-    {
-        dbContextOptions.UseMySql(connectionString,
-            ServerVersion.AutoDetect(connectionString),
-            options => options.EnableRetryOnFailure(
-                maxRetryCount: 5,
-                maxRetryDelay: System.TimeSpan.FromSeconds(30),
-                errorNumbersToAdd: null));
-    });
+builder.Services.AddDbContext<TravelersDbContext>(options =>
+{
+    options.UseNpgsql(connectionString);
+});
 
 builder.Services.AddAutoMapper(
     typeof(ModelToResponse),

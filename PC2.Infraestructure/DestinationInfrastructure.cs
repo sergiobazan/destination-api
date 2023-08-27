@@ -1,4 +1,5 @@
-﻿using si730pc2u201624050.Infraestructure.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using si730pc2u201624050.Infraestructure.Context;
 using si730pc2u201624050.Infraestructure.Interfaces;
 using si730pc2u201624050.Infraestructure.Models;
 using System;
@@ -29,6 +30,11 @@ namespace si730pc2u201624050.Infraestructure
             {
                 return false;
             }
+        }
+
+        public async Task<List<Destination>> GetAll()
+        {
+            return await _context.Destinations.ToListAsync();
         }
     }
 }

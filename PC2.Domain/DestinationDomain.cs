@@ -29,5 +29,10 @@ namespace si730pc2u201624050.Domain
             if (destinationExists != null) return false;
             return await _destinationInfrastructure.Create(destination);
         }
+
+        public async Task<List<Destination>> GetAll()
+        {
+            return await _destinationInfrastructure.GetAll();
+        }
     }
 }

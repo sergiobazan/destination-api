@@ -10,5 +10,6 @@ namespace si730pc2u201624050.Domain.Interfaces
     public interface IDestinationDomain
     {
         Task<bool> Create(Destination destination);
+        Task<List<Destination>> GetAll();
     }
 }

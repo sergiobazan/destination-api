@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using si730pc2u201624050.API.Input;
+using si730pc2u201624050.API.Response;
 using si730pc2u201624050.Domain.Interfaces;
 using si730pc2u201624050.Infraestructure.Models;
 
@@ -32,6 +33,14 @@ namespace si730pc2u201624050.API.Controllers
                 return Created($"/api/v1/destinations/{destination.Id}", destination);
             }
             return BadRequest("Formato invalido");
+        }
+
+        [HttpGet]
+        public async Task<List<DestinationResponse>> GetAll()
+        {
+            var destinations = await _destinationDomain.GetAll();
+            var result = _mapper.Map<List<Destination>, List<DestinationResponse>>(destinations);
+            return result;
         }
     }
 }

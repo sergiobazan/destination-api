@@ -10,5 +10,6 @@ namespace si730pc2u201624050.Infraestructure.Interfaces
     public interface IDestinationInfrastructure
     {
         Task<bool> Create(Destination destination);
+        Task<List<Destination>> GetAll();
     }
 }
